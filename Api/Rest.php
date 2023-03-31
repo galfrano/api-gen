@@ -14,7 +14,7 @@ abstract class Rest{
   function route($id){
   $method = $_SERVER['REQUEST_METHOD'];
     if($method == 'GET'){
-      return empty($id) ? $this->entity->getAll() : $this->entity->get($id);
+      return empty($id) ? $this->getList() : $this->get($id);
     }
     elseif($method == 'POST'){
       try{
@@ -44,4 +44,9 @@ abstract class Rest{
       return ['message'=>'Method not supported or missing id'];
     }
   }
+  protected function getList(){
+    return $this->entity->getAll();
+  }
+  protected function get($id){
+    return $this->entity->get($id);}
 }
