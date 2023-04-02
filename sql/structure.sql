@@ -11,6 +11,7 @@ create table users(
 create table classes(
   classname varchar(255) not null,
   description text not null,
+  location varchar(255) null,
   `date` timestamp not null,
   no_of_places int(3) not null,
   created_by int(8) not null,

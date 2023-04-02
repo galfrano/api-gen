@@ -3,11 +3,11 @@ return array (
   'pk' => '_id',
   'columns' => 
   array (
-    '_id' => 'int(8)',
     'first_name' => 'varchar(255)',
     'last_name' => 'varchar(255)',
     'email' => 'varchar(255)',
     'password' => 'varchar(255)',
+    '_id' => 'int(8)',
   ),
   'parents' => 
   array (
@@ -20,7 +20,7 @@ return array (
     ),
     'attendees' => 
     array (
-      '_id' => 'atendee',
+      '_id' => 'attendee',
     ),
   ),
 );

@@ -3,13 +3,13 @@ return array (
   'pk' => '_id',
   'columns' => 
   array (
-    '_id' => 'int(8)',
-    'atendee' => 'int(8)',
+    'attendee' => 'int(8)',
     'class' => 'int(8)',
+    '_id' => 'int(8)',
   ),
   'parents' => 
   array (
-    'atendee' => 
+    'attendee' => 
     array (
       'users' => '_id',
     ),
