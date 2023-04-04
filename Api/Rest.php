@@ -2,6 +2,7 @@
 namespace Api;
 use \Model\Entity;
 
+//all verbs should be overwritable
 abstract class Rest{
   protected $tableName;
   protected $entity;
@@ -17,36 +18,51 @@ abstract class Rest{
       return empty($id) ? $this->getList() : $this->get($id);
     }
     elseif($method == 'POST'){
-      try{
-        return $this->entity->get($this->entity->add($this->data));
-        }
-      catch(\PDOException $e){
-        http_response_code(400);
-        return ['message' => $e->getMessage()];
-      }
+      $this->post();
     }
     elseif($method == 'PUT' && !empty($id)){
-      try{
-        $this->entity->edit($this->data, $id);
-        return $this->get($id);
-      }
-      catch(\PDOException $e){
-        http_response_code(400);
-        return ['message' => $e->getMessage()];
-      }
+      $this->put($id);
     }
     elseif($method == 'DELETE' && !empty($id)){
-      $id == 'deleteall' ? $this->entity->deleteAll() : $this->entity->delete($id);
-      return ["acknowledged"=> true, 'deletedCount' => 1];
+      $this->delete();
     }
     else{
       http_response_code(400);
       return ['message'=>'Method not supported or missing id'];
     }
   }
+  
   protected function getList(){
     return $this->entity->getAll();
   }
+  
   protected function get($id){
-    return $this->entity->get($id);}
+    return $this->entity->get($id);
+  }
+  
+  protected function post(){
+    try{
+      return $this->entity->get($this->entity->add($this->data));
+      }
+    catch(\PDOException $e){
+      http_response_code(400);
+      return ['message' => $e->getMessage()];
+    }
+  }
+  
+  protected function put($id){
+    try{
+      $this->entity->edit($this->data, $id);
+      return $this->get($id);
+    }
+    catch(\PDOException $e){
+      http_response_code(400);
+      return ['message' => $e->getMessage()];
+    }
+  }
+
+  protected function delete(){
+    $id == 'deleteall' ? $this->entity->deleteAll() : $this->entity->delete($id);
+    return ["acknowledged"=> true, 'deletedCount' => 1];
+  }
 }

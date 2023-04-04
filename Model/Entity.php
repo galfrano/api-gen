@@ -173,6 +173,12 @@ class Entity{
 		$this->db->query('delete from '.$this->tn.' where '.$this->schema['pk'].'=?', [$id]);
 		$this->db->finish();
 	}
+  function deleteWhere($where){
+		$this->db->start();
+		$this->db->query('delete from '.$this->tn.$this->filters($where), $this->tokens);
+		$this->db->finish();
+		list($this->tokens, $this->where) = [[], []];
+	}
 	function deleteAll(){
 		$this->db->start();
 		$this->db->query('delete from '.$this->tn);

@@ -23,7 +23,7 @@ create table classes(
 
 create table attendees(
   attendee int(8) not null,
-  foreign key(atendee) references users(_id),
+  foreign key(attendee) references users(_id),
   class int(8) not null,
   foreign key(class) references classes(_id) on delete restrict,
   _id int(8)  not null auto_increment,
